@@ -15,7 +15,7 @@ class MainApplication: Application(), HasAndroidInjector {
     override fun onCreate() {
         super.onCreate()
 
-        val component = DaggerApplicationComponent.create().inject(this)
+        DaggerApplicationComponent.create().inject(this)
     }
 
     override fun androidInjector(): AndroidInjector<Any> {

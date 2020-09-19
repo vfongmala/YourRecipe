@@ -1,31 +1,46 @@
 package com.vfongmala.yourrecipe.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.vfongmala.yourrecipe.R
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), HomeView {
 
-    private lateinit var homeViewModel: HomeViewModel
+    @Inject
+    lateinit var presenter: HomePresenter
+
+    private lateinit var rootView: View
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+        rootView = inflater.inflate(R.layout.fragment_home, container, false)
+
+        return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        presenter.init()
+    }
+
+    override fun setText(text: String) {
+        val textView: TextView = rootView.findViewById(R.id.text_home)
+        textView.text = text
     }
 }
