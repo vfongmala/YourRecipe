@@ -9,8 +9,7 @@ java {
 }
 
 dependencies {
-    implementation(project(":data-contract"))
-    implementation(project(":domain-contract"))
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "io.reactivex.rxjava3:rxjava:3.0.6"
 }

@@ -1,3 +1,5 @@
+include ':data-contract'
+include ':domain-contract'
 include ':domain'
 include ':data'
 include ':app'
