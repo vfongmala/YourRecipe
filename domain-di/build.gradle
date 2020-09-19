@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'kotlin'
+    id 'kotlin-kapt'
 }
 
 java {
@@ -9,10 +10,19 @@ java {
 }
 
 dependencies {
+    implementation project(":data-di")
     implementation project(":data-contract")
+    implementation project(":domain")
     implementation project(":domain-contract")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "io.reactivex.rxjava3:rxjava:3.0.6"
     implementation "com.google.dagger:dagger:2.29.1"
+    implementation "com.google.dagger:dagger-android:2.29.1"
+
+    api project(":data-contract")
+    api project(":domain-contract")
+
+    kapt 'com.google.dagger:dagger-compiler:2.29.1'
+
+    annotationProcessor "com.google.dagger:dagger-compiler:2.29.1"
 }

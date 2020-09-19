@@ -1,3 +1,5 @@
+include ':domain-di'
+include ':data-di'
 include ':data-contract'
 include ':domain-contract'
 include ':domain'

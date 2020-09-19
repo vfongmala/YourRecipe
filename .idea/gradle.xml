@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -13,8 +14,10 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data-contract" />
+            <option value="$PROJECT_DIR$/data-di" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/domain-contract" />
+            <option value="$PROJECT_DIR$/domain-di" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
