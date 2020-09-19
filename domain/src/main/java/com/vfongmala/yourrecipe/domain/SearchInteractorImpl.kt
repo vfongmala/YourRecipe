@@ -27,4 +27,15 @@ class SearchInteractorImpl(
         }
     }
 
+    override fun randomRecipes(): Observable<List<RecipeInfo>> {
+        return api.randomRecipes(RANDOM_AMOUNT).map { response ->
+            response.recipes?.map {
+                recipeInfoResponseMapper.map(it)
+            }
+        }
+    }
+
+    companion object {
+        const val RANDOM_AMOUNT = 10
+    }
 }

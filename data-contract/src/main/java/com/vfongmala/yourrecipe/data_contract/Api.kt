@@ -1,5 +1,6 @@
 package com.vfongmala.yourrecipe.data_contract
 
+import com.vfongmala.yourrecipe.data_contract.entity.RandomRecipesResponse
 import com.vfongmala.yourrecipe.data_contract.entity.RecipeInfoResponse
 import com.vfongmala.yourrecipe.data_contract.entity.SearchResponse
 import io.reactivex.rxjava3.core.Observable
@@ -13,4 +14,7 @@ interface Api {
 
     @GET("recipes/{id}/information")
     fun recipeInfo(@Path("id") id: Int, @Query("apiKey") key: String) : Observable<RecipeInfoResponse>
+
+    @GET("recipes/random")
+    fun randomRecipes(@Query("number") number: Int, @Query("apiKey") key: String) : Observable<RandomRecipesResponse>
 }

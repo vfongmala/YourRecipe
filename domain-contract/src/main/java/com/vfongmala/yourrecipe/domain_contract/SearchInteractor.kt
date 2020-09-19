@@ -7,4 +7,5 @@ import io.reactivex.rxjava3.core.Observable
 interface SearchInteractor {
     fun search(name: String): Observable<SearchResult>
     fun recipeInfo(id: Int): Observable<RecipeInfo>
+    fun randomRecipes(): Observable<List<RecipeInfo>>
 }
