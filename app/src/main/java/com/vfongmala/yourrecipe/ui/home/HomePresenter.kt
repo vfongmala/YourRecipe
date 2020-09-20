@@ -3,6 +3,7 @@ package com.vfongmala.yourrecipe.ui.home
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.vfongmala.yourrecipe.domain_contract.SearchInteractor
+import com.vfongmala.yourrecipe.entity.RecipePreview
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -18,20 +19,38 @@ class HomePresenter(
     fun init() {
         homeViewModel = viewModelProvider.get(HomeViewModel::class.java)
 
-        homeViewModel.text.observe(lifecycleOwner, {
-            view.setText(it)
+        homeViewModel.list.observe(lifecycleOwner, {
+            view.showResult(it)
         })
 
-        call()
+        getRandomRecipes()
     }
 
-    private fun call() {
-        searchInteractor.search("Steak")
+    fun search() {
+        view.goToSearchActivity()
+    }
+
+    private fun getRandomRecipes() {
+        searchInteractor.randomRecipes()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                it.result
-                homeViewModel.text.value = "We have ${it.totalResults}"
+            .map { list ->
+                list.map {
+                    RecipePreview(
+                        it.id,
+                        it.title,
+                        it.image
+                    )
+                }
             }
+            .subscribe( {
+                updateModel(it)
+            }, {
+                view.showNoResult("Something was wrong, please try again")
+            })
+    }
+
+    private fun updateModel(result: List<RecipePreview>) {
+        homeViewModel.list.value = result
     }
 }

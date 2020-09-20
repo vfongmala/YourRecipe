@@ -1,13 +1,19 @@
 package com.vfongmala.yourrecipe.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.vfongmala.yourrecipe.R
+import com.vfongmala.yourrecipe.entity.RecipePreview
+import com.vfongmala.yourrecipe.ui.adapter.RecipePreviewAdapter
+import com.vfongmala.yourrecipe.ui.search.SearchActivity
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -30,6 +36,10 @@ class HomeFragment : Fragment(), HomeView {
     ): View? {
         rootView = inflater.inflate(R.layout.fragment_home, container, false)
 
+        rootView.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+            presenter.search()
+        }
+
         return rootView
     }
 
@@ -39,8 +49,29 @@ class HomeFragment : Fragment(), HomeView {
         presenter.init()
     }
 
-    override fun setText(text: String) {
-        val textView: TextView = rootView.findViewById(R.id.text_home)
-        textView.text = text
+    override fun showResult(results: List<RecipePreview>) {
+        rootView.findViewById<TextView>(R.id.error_text).apply {
+            visibility = View.GONE
+        }
+        val recyclerView = rootView.findViewById<RecyclerView>(R.id.result_view).apply {
+            visibility = View.VISIBLE
+        }
+        val adapter = RecipePreviewAdapter(results)
+        recyclerView.adapter = adapter
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun showNoResult(message: String) {
+        rootView.findViewById<RecyclerView>(R.id.result_view).apply {
+            visibility = View.GONE
+        }
+        rootView.findViewById<TextView>(R.id.error_text).apply {
+            visibility = View.VISIBLE
+            text = message
+        }
+    }
+
+    override fun goToSearchActivity() {
+        startActivity(Intent(this.context, SearchActivity::class.java))
     }
 }
