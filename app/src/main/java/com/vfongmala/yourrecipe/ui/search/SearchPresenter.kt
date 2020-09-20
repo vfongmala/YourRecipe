@@ -47,4 +47,7 @@ class SearchPresenter(
         viewModel.list.value = result
     }
 
+    fun selectRecipe(recipe: RecipePreview) {
+        view.openRecipe(recipe.id)
+    }
 }

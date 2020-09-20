@@ -8,7 +8,12 @@ import com.vfongmala.yourrecipe.R
 import com.vfongmala.yourrecipe.entity.RecipePreview
 import com.vfongmala.yourrecipe.ui.component.RecipePreviewViewHolder
 
-class RecipePreviewAdapter(private val data: List<RecipePreview>): RecyclerView.Adapter<RecipePreviewViewHolder>() {
+class RecipePreviewAdapter: RecyclerView.Adapter<RecipePreviewViewHolder>() {
+
+    var data: List<RecipePreview> = listOf()
+
+    var onClickFunc: (RecipePreview) -> Unit = {}
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipePreviewViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.view_recipe_preview, parent, false)
         return RecipePreviewViewHolder(view)
@@ -18,6 +23,9 @@ class RecipePreviewAdapter(private val data: List<RecipePreview>): RecyclerView.
         val recipe = data[position]
         holder.title.text = recipe.title
         Glide.with(holder.itemView).load(recipe.url).into(holder.thumbnail)
+        holder.itemView.setOnClickListener {
+            onClickFunc(recipe)
+        }
     }
 
     override fun getItemCount(): Int {

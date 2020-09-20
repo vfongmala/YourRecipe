@@ -6,4 +6,5 @@ interface HomeView {
     fun showResult(results: List<RecipePreview>)
     fun showNoResult(message: String)
     fun goToSearchActivity()
+    fun openRecipe(id: Int)
 }

@@ -1,14 +1,12 @@
 package com.vfongmala.yourrecipe.ui.recipe
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.vfongmala.yourrecipe.entity.RecipeInfo
 
 class RecipeViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "Recipe"
+    val data: MutableLiveData<RecipeInfo> by lazy {
+        MutableLiveData<RecipeInfo>()
     }
-
-    val text: LiveData<String> = _text
 }

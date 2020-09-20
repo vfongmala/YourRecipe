@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.vfongmala.yourrecipe.core.Constants
 import com.vfongmala.yourrecipe.databinding.FragmentHomeBinding
 import com.vfongmala.yourrecipe.entity.RecipePreview
 import com.vfongmala.yourrecipe.ui.adapter.RecipePreviewAdapter
+import com.vfongmala.yourrecipe.ui.recipe.RecipeActivity
 import com.vfongmala.yourrecipe.ui.search.SearchActivity
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -23,6 +25,8 @@ class HomeFragment : Fragment(), HomeView {
 
     private val binding get() = _binding!!
 
+    private val listAdapter = RecipePreviewAdapter()
+
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -35,9 +39,7 @@ class HomeFragment : Fragment(), HomeView {
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        binding.fab.setOnClickListener { view ->
-            presenter.search()
-        }
+        initView()
 
         return binding.root
     }
@@ -52,10 +54,12 @@ class HomeFragment : Fragment(), HomeView {
         binding.errorText.apply {
             visibility = View.GONE
         }
-        val adapter = RecipePreviewAdapter(results)
         binding.resultView.apply {
             visibility = View.VISIBLE
-            this.adapter = adapter
+        }
+        listAdapter.apply {
+            data = results
+            notifyDataSetChanged()
         }
     }
 
@@ -76,5 +80,24 @@ class HomeFragment : Fragment(), HomeView {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun openRecipe(id: Int) {
+        val intent = Intent(this.context, RecipeActivity::class.java).apply {
+            putExtra(Constants.RECIPE_ID.value, id)
+        }
+        startActivity(intent)
+    }
+
+    private fun initView() {
+        listAdapter.onClickFunc = {
+            presenter.selectRecipe(it)
+        }
+        binding.fab.setOnClickListener {
+            presenter.search()
+        }
+        binding.resultView.apply {
+            this.adapter = listAdapter
+        }
     }
 }

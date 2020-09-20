@@ -6,4 +6,5 @@ interface SearchView {
     fun showResult(list: List<RecipePreview>)
     fun showLoading()
     fun showNoResult()
+    fun openRecipe(id: Int)
 }

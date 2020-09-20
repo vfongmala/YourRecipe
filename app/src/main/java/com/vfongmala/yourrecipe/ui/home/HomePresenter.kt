@@ -53,4 +53,8 @@ class HomePresenter(
     private fun updateModel(result: List<RecipePreview>) {
         homeViewModel.list.value = result
     }
+
+    fun selectRecipe(recipe: RecipePreview) {
+        view.openRecipe(recipe.id)
+    }
 }
