@@ -11,4 +11,18 @@
     <string name="menu_home">Home</string>
     <string name="menu_saved_recipe">Saved Recipe</string>
     <string name="menu_about">About</string>
+
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
+
+    <plurals name="servings">
+        <item quantity="one">%d serving</item>
+        <item quantity="other">%d servings</item>
+    </plurals>
+
+    <plurals name="minutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+
 </resources>

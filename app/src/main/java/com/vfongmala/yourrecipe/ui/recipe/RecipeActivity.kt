@@ -1,12 +1,12 @@
 package com.vfongmala.yourrecipe.ui.recipe
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.vfongmala.yourrecipe.core.Constants
 import com.vfongmala.yourrecipe.databinding.ActivityRecipeBinding
-import com.vfongmala.yourrecipe.entity.RecipeInfo
+import com.vfongmala.yourrecipe.ui.adapter.RecipeDetailAdapter
+import com.vfongmala.yourrecipe.ui.entity.ViewDataWrapper
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -16,6 +16,8 @@ class RecipeActivity : AppCompatActivity(), RecipeView {
     lateinit var presenter: RecipePresenter
 
     private lateinit var binding: ActivityRecipeBinding
+
+    private val listAdapter = RecipeDetailAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -35,17 +37,23 @@ class RecipeActivity : AppCompatActivity(), RecipeView {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        binding.fab.setOnClickListener {
+            presenter.saveRecipe()
+        }
+
+        binding.contentView.adapter = listAdapter
+    }
+
+    override fun showRecipe(recipe: List<ViewDataWrapper>) {
+        listAdapter.apply {
+            data = recipe
+            notifyDataSetChanged()
         }
     }
 
-    override fun showRecipe(recipe: RecipeInfo) {
-        Glide.with(this).load(recipe.image).into(binding.contentRecipe.recipeImage)
-    }
-
     override fun showError() {
-        TODO("Not yet implemented")
+        binding.errorText.visibility = View.VISIBLE
+        binding.contentView.visibility = View.GONE
+        binding.fab.visibility = View.GONE
     }
 }

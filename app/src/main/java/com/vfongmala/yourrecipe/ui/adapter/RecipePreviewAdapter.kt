@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vfongmala.yourrecipe.R
-import com.vfongmala.yourrecipe.entity.RecipePreview
+import com.vfongmala.yourrecipe.ui.entity.RecipePreview
 import com.vfongmala.yourrecipe.ui.component.RecipePreviewViewHolder
 
 class RecipePreviewAdapter: RecyclerView.Adapter<RecipePreviewViewHolder>() {

@@ -6,7 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.vfongmala.yourrecipe.core.Constants
 import com.vfongmala.yourrecipe.databinding.ActivitySearchBinding
-import com.vfongmala.yourrecipe.entity.RecipePreview
+import com.vfongmala.yourrecipe.ui.entity.RecipePreview
 import com.vfongmala.yourrecipe.ui.adapter.RecipePreviewAdapter
 import com.vfongmala.yourrecipe.ui.recipe.RecipeActivity
 import dagger.android.AndroidInjection
@@ -66,8 +66,6 @@ class SearchActivity : AppCompatActivity(), SearchView {
         binding.contentSearch.searchButton.setOnClickListener {
             presenter.search(binding.contentSearch.searchBox.text.toString())
         }
-        binding.contentSearch.resultView.apply {
-            this.adapter = listAdapter
-        }
+        binding.contentSearch.resultView.adapter = listAdapter
     }
 }

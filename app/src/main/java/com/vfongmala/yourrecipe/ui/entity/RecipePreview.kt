@@ -1,4 +1,4 @@
-package com.vfongmala.yourrecipe.entity
+package com.vfongmala.yourrecipe.ui.entity
 
 data class RecipePreview(
     val id: Int,

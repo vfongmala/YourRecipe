@@ -1,6 +1,6 @@
 package com.vfongmala.yourrecipe.ui.home
 
-import com.vfongmala.yourrecipe.entity.RecipePreview
+import com.vfongmala.yourrecipe.ui.entity.RecipePreview
 
 interface HomeView {
     fun showResult(results: List<RecipePreview>)

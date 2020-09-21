@@ -1,6 +1,6 @@
 package com.vfongmala.yourrecipe.ui.search
 
-import com.vfongmala.yourrecipe.entity.RecipePreview
+import com.vfongmala.yourrecipe.ui.entity.RecipePreview
 
 interface SearchView {
     fun showResult(list: List<RecipePreview>)

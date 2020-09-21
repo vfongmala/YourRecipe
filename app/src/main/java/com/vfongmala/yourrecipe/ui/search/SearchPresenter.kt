@@ -4,14 +4,17 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.vfongmala.yourrecipe.core.SchedulersFactory
 import com.vfongmala.yourrecipe.domain_contract.SearchInteractor
-import com.vfongmala.yourrecipe.entity.RecipePreview
+import com.vfongmala.yourrecipe.domain_contract.entity.Recipe
+import com.vfongmala.yourrecipe.domain_contract.mapper.Mapper
+import com.vfongmala.yourrecipe.ui.entity.RecipePreview
 
 class SearchPresenter(
     private val view: SearchView,
     private val lifecycleOwner: LifecycleOwner,
     private val viewModelProvider: ViewModelProvider,
     private val searchInteractor: SearchInteractor,
-    private val schedulersFactory: SchedulersFactory
+    private val schedulersFactory: SchedulersFactory,
+    private val recipeMapper: Mapper<Recipe, RecipePreview>
 ) {
 
     private lateinit var viewModel: SearchViewModel
@@ -30,11 +33,7 @@ class SearchPresenter(
             .observeOn(schedulersFactory.main())
             .map { searchResult ->
                 searchResult.result.map {
-                    RecipePreview(
-                        it.id,
-                        it.title,
-                        it.image
-                    )
+                    recipeMapper.map(it)
                 }
             }.subscribe({
                 updateModel(it)

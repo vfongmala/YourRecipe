@@ -3,7 +3,9 @@ package com.vfongmala.yourrecipe.ui.home
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.vfongmala.yourrecipe.domain_contract.SearchInteractor
-import com.vfongmala.yourrecipe.entity.RecipePreview
+import com.vfongmala.yourrecipe.domain_contract.entity.RecipeInfo
+import com.vfongmala.yourrecipe.domain_contract.mapper.Mapper
+import com.vfongmala.yourrecipe.ui.entity.RecipePreview
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -11,7 +13,8 @@ class HomePresenter(
     private val view: HomeView,
     private val lifecycleOwner: LifecycleOwner,
     private val viewModelProvider: ViewModelProvider,
-    private val searchInteractor: SearchInteractor
+    private val searchInteractor: SearchInteractor,
+    private val recipeInfoMapper: Mapper<RecipeInfo, RecipePreview>
 ) {
 
     private lateinit var homeViewModel: HomeViewModel
@@ -36,11 +39,7 @@ class HomePresenter(
             .observeOn(AndroidSchedulers.mainThread())
             .map { list ->
                 list.map {
-                    RecipePreview(
-                        it.id,
-                        it.title,
-                        it.image
-                    )
+                    recipeInfoMapper.map(it)
                 }
             }
             .subscribe( {
