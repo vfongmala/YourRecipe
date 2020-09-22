@@ -54,6 +54,6 @@ class HomePresenter(
     }
 
     fun selectRecipe(recipe: RecipePreview) {
-        view.openRecipe(recipe.id)
+        view.openRecipe(recipe)
     }
 }

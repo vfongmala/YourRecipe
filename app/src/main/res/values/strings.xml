@@ -15,6 +15,10 @@
     <string name="ingredients">Ingredients</string>
     <string name="instructions">Instructions</string>
 
+    <string name="credit">From: %s</string>
+
+    <string name="ingredient_amount">%s %s</string>
+
     <plurals name="servings">
         <item quantity="one">%d serving</item>
         <item quantity="other">%d servings</item>

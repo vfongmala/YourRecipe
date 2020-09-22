@@ -20,14 +20,22 @@ class RecipePresenter(
 
     private lateinit var viewModel: RecipeViewModel
 
-    fun init() {
+    fun init(name: String, image: String) {
         viewModel = viewModelProvider.get(RecipeViewModel::class.java)
 
         viewModel.data.observe(lifecycleOwner, {
             view.showRecipe(it)
         })
-    }
+        viewModel.image.observe(lifecycleOwner, {
+            view.showRecipeImage(it)
+        })
+        viewModel.name.observe(lifecycleOwner, {
+            view.setRecipeTitle(it)
+        })
 
+        viewModel.image.value = image
+        viewModel.name.value = name
+    }
     fun loadRecipe(id: Int) {
         searchInteractor.recipeInfo(id)
             .subscribeOn(schedulersFactory.io())

@@ -13,7 +13,7 @@ data class RecipeDetail(
 ) {
     data class ExtendedIngredient(
         val name: String,
-        val amount: Double,
+        val amount: String,
         val unit: String
     )
 

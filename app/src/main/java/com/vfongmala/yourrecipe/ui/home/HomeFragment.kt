@@ -82,9 +82,11 @@ class HomeFragment : Fragment(), HomeView {
         _binding = null
     }
 
-    override fun openRecipe(id: Int) {
+    override fun openRecipe(data: RecipePreview) {
         val intent = Intent(this.context, RecipeActivity::class.java).apply {
-            putExtra(Constants.RECIPE_ID.value, id)
+            putExtra(Constants.RECIPE_ID.value, data.id)
+            putExtra(Constants.RECIPE_IMAGE.value, data.url)
+            putExtra(Constants.RECIPE_NAME.value, data.title)
         }
         startActivity(intent)
     }

@@ -31,7 +31,7 @@ class RecipeDetailMapper: Mapper<RecipeInfo, RecipeDetail> {
     private fun mapInstructionStep(list: List<RecipeInfo.InstructionStep>): List<RecipeDetail.InstructionStep> {
         return list.map {
             RecipeDetail.InstructionStep(
-                "${it.number} ${it.step}"
+                "${it.number}) ${it.step}"
             )
         }
     }
@@ -40,7 +40,7 @@ class RecipeDetailMapper: Mapper<RecipeInfo, RecipeDetail> {
         return list.map {
             RecipeDetail.ExtendedIngredient(
                 it.name,
-                it.amount,
+                String.format("%.1f", it.amount),
                 it.unit
             )
         }

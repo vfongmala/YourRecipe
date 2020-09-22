@@ -3,6 +3,7 @@ package com.vfongmala.yourrecipe.ui.recipe
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.vfongmala.yourrecipe.core.Constants
 import com.vfongmala.yourrecipe.databinding.ActivityRecipeBinding
 import com.vfongmala.yourrecipe.ui.adapter.RecipeDetailAdapter
@@ -26,8 +27,10 @@ class RecipeActivity : AppCompatActivity(), RecipeView {
         initView()
 
         val id = intent.extras?.getInt(Constants.RECIPE_ID.value)?: 0
+        val name = intent.extras?.getString(Constants.RECIPE_NAME.value)?: ""
+        val image = intent.extras?.getString(Constants.RECIPE_IMAGE.value)?: ""
 
-        presenter.init()
+        presenter.init(name, image)
         presenter.loadRecipe(id)
     }
 
@@ -42,6 +45,14 @@ class RecipeActivity : AppCompatActivity(), RecipeView {
         }
 
         binding.contentView.adapter = listAdapter
+    }
+
+    override fun setRecipeTitle(title: String) {
+        supportActionBar?.title = title
+    }
+
+    override fun showRecipeImage(image: String) {
+        Glide.with(this).load(image).into(binding.recipeImage)
     }
 
     override fun showRecipe(recipe: List<ViewDataWrapper>) {

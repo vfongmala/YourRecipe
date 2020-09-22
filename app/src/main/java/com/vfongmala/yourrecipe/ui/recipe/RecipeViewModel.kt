@@ -9,4 +9,12 @@ class RecipeViewModel : ViewModel() {
     val data: MutableLiveData<List<ViewDataWrapper>> by lazy {
         MutableLiveData<List<ViewDataWrapper>>()
     }
+
+    val image: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+
+    val name: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
 }
