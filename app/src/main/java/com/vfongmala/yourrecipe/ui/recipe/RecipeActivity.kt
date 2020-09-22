@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import androidx.recyclerview.widget.RecyclerView
 import com.vfongmala.yourrecipe.core.Constants
 import com.vfongmala.yourrecipe.databinding.ActivityRecipeBinding
 import com.vfongmala.yourrecipe.ui.adapter.RecipeDetailAdapter
@@ -51,6 +52,16 @@ class RecipeActivity : AppCompatActivity(), RecipeView {
         }
 
         binding.contentView.adapter = listAdapter
+        binding.contentView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0 && binding.fab.isShown) {
+                    binding.fab.hide()
+                } else if (dy < 0 && !binding.fab.isShown) {
+                    binding.fab.show()
+                }
+            }
+        })
     }
 
     private fun initViewModel() {
