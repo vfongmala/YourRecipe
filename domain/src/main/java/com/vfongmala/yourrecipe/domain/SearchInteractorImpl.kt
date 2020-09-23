@@ -36,6 +36,6 @@ class SearchInteractorImpl(
     }
 
     companion object {
-        const val RANDOM_AMOUNT = 10
+        const val RANDOM_AMOUNT = 20
     }
 }

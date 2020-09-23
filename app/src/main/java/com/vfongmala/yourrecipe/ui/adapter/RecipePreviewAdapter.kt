@@ -1,5 +1,6 @@
 package com.vfongmala.yourrecipe.ui.adapter
 
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +23,21 @@ class RecipePreviewAdapter: RecyclerView.Adapter<RecipePreviewViewHolder>() {
     override fun onBindViewHolder(holder: RecipePreviewViewHolder, position: Int) {
         val recipe = data[position]
         holder.title.text = recipe.title
-        Glide.with(holder.itemView).load(recipe.url).into(holder.thumbnail)
+
+        val color = listOf(
+            R.color.thumbnail_color_1,
+            R.color.thumbnail_color_2,
+            R.color.thumbnail_color_3,
+            R.color.thumbnail_color_4,
+            R.color.thumbnail_color_5,
+            R.color.thumbnail_color_6,
+            R.color.thumbnail_color_7
+        ).random()
+        holder.thumbnail.setImageDrawable(ColorDrawable(color))
+
+        if (recipe.url.isNotEmpty()) {
+            Glide.with(holder.itemView).load(recipe.url).into(holder.thumbnail)
+        }
         holder.itemView.setOnClickListener {
             onClickFunc(recipe)
         }

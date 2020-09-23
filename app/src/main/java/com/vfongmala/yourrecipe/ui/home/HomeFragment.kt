@@ -51,6 +51,8 @@ class HomeFragment : Fragment(), HomeView {
     }
 
     override fun showResult(results: List<RecipePreview>) {
+        binding.loadingView.visibility = View.GONE
+        
         binding.errorText.apply {
             visibility = View.GONE
         }
@@ -89,6 +91,10 @@ class HomeFragment : Fragment(), HomeView {
             putExtra(Constants.RECIPE_NAME.value, data.title)
         }
         startActivity(intent)
+    }
+
+    override fun showLoading() {
+        binding.loadingView.visibility = View.VISIBLE
     }
 
     private fun initView() {

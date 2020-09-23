@@ -34,6 +34,7 @@ class HomePresenter(
     }
 
     private fun getRandomRecipes() {
+        view.showLoading()
         searchInteractor.randomRecipes()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

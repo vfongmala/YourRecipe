@@ -5,8 +5,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.vfongmala.yourrecipe.R
+import com.vfongmala.yourrecipe.databinding.ViewRecipePreviewBinding
 
 class RecipePreviewViewHolder(view: View): RecyclerView.ViewHolder(view) {
-    val thumbnail: ImageView = view.findViewById(R.id.thumbnail)
-    val title: TextView = view.findViewById(R.id.recipe_name)
+    private val binding = ViewRecipePreviewBinding.bind(view)
+    val thumbnail: ImageView = binding.thumbnail
+    val title: TextView = binding.recipeName
 }
