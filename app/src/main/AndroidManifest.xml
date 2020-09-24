@@ -16,7 +16,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/Theme.YourRecipe.NoActionBar">
+            android:theme="@style/Theme.YourRecipe.NoActionBar"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,10 +25,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.search.SearchActivity"
-            android:theme="@style/Theme.YourRecipe.NoActionBar" />
+            android:theme="@style/Theme.YourRecipe.NoActionBar"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"/>
         <activity
             android:name=".ui.recipe.RecipeActivity"
-            android:theme="@style/Theme.YourRecipe.NoActionBar" />
+            android:theme="@style/Theme.YourRecipe.NoActionBar"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"/>
     </application>
 
 </manifest>
