@@ -28,6 +28,8 @@ class SearchPresenter(
     }
 
     fun search(name: String) {
+        view.showLoading()
+        view.hideKeyboard()
         searchInteractor.search(name.trim())
             .subscribeOn(schedulersFactory.io())
             .observeOn(schedulersFactory.main())
@@ -47,6 +49,6 @@ class SearchPresenter(
     }
 
     fun selectRecipe(recipe: RecipePreview) {
-        view.openRecipe(recipe.id)
+        view.openRecipe(recipe)
     }
 }

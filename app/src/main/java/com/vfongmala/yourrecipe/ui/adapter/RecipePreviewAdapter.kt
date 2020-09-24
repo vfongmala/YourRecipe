@@ -11,7 +11,7 @@ import com.vfongmala.yourrecipe.ui.component.RecipePreviewViewHolder
 
 class RecipePreviewAdapter: RecyclerView.Adapter<RecipePreviewViewHolder>() {
 
-    var data: List<RecipePreview> = listOf()
+    var data: MutableList<RecipePreview> = mutableListOf()
 
     var onClickFunc: (RecipePreview) -> Unit = {}
 
@@ -23,7 +23,6 @@ class RecipePreviewAdapter: RecyclerView.Adapter<RecipePreviewViewHolder>() {
     override fun onBindViewHolder(holder: RecipePreviewViewHolder, position: Int) {
         val recipe = data[position]
         holder.title.text = recipe.title
-
         val color = listOf(
             R.color.thumbnail_color_1,
             R.color.thumbnail_color_2,

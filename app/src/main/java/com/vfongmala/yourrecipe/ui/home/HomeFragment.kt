@@ -52,23 +52,17 @@ class HomeFragment : Fragment(), HomeView {
 
     override fun showResult(results: List<RecipePreview>) {
         binding.loadingView.visibility = View.GONE
-        
-        binding.errorText.apply {
-            visibility = View.GONE
-        }
-        binding.resultView.apply {
-            visibility = View.VISIBLE
-        }
+        binding.errorText.visibility = View.GONE
+        binding.resultView.visibility = View.VISIBLE
         listAdapter.apply {
-            data = results
+            data.clear()
+            data.addAll(results)
             notifyDataSetChanged()
         }
     }
 
     override fun showNoResult(message: String) {
-        binding.resultView.apply {
-            visibility = View.GONE
-        }
+        binding.resultView.visibility = View.GONE
         binding.errorText.apply {
             visibility = View.VISIBLE
             text = message
@@ -104,8 +98,6 @@ class HomeFragment : Fragment(), HomeView {
         binding.fab.setOnClickListener {
             presenter.search()
         }
-        binding.resultView.apply {
-            this.adapter = listAdapter
-        }
+        binding.resultView.adapter = listAdapter
     }
 }

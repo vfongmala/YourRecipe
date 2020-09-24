@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">YourRecipe</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Your Recipe</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Your Recipe</string>
@@ -8,17 +8,22 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Menu -->
     <string name="menu_home">Home</string>
     <string name="menu_saved_recipe">Saved Recipe</string>
     <string name="menu_about">About</string>
 
+    <!-- Recipe page -->
     <string name="ingredients">Ingredients</string>
     <string name="instructions">Instructions</string>
-
     <string name="credit">From: %s</string>
-
     <string name="ingredient_amount">%s %s</string>
 
+    <!-- Search page -->
+    <string name="search_hint">Type here to search</string>
+    <string name="search_title">Search for Recipes</string>
+
+    <!-- Plurals -->
     <plurals name="servings">
         <item quantity="one">%d serving</item>
         <item quantity="other">%d servings</item>
