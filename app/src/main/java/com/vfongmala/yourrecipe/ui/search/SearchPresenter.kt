@@ -45,7 +45,11 @@ class SearchPresenter(
     }
 
     private fun updateModel(result: List<RecipePreview>) {
-        viewModel.list.value = result
+        if (result.isNotEmpty()) {
+            viewModel.list.value = result
+        } else {
+            view.showNoResult()
+        }
     }
 
     fun selectRecipe(recipe: RecipePreview) {

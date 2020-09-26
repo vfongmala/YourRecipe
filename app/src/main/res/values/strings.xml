@@ -21,7 +21,7 @@
 
     <!-- Search page -->
     <string name="search_hint">Type here to search</string>
-    <string name="search_title">Search for Recipes</string>
+    <string name="search_no_result">There is no result for this keyword.<br/>Please try again with another keyword</string>
 
     <!-- About page -->
     <string name="about_title">YourRecipe application</string>

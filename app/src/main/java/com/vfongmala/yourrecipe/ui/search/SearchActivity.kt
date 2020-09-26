@@ -7,7 +7,6 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import com.vfongmala.yourrecipe.R
 import com.vfongmala.yourrecipe.core.Constants
 import com.vfongmala.yourrecipe.databinding.ActivitySearchBinding
 import com.vfongmala.yourrecipe.ui.adapter.RecipePreviewAdapter
@@ -50,10 +49,12 @@ class SearchActivity : AppCompatActivity(), SearchView {
     override fun showLoading() {
         binding.contentSearch.loadingView.visibility = View.VISIBLE
         binding.contentSearch.resultView.visibility = View.GONE
+        binding.contentSearch.noResultText.visibility = View.GONE
     }
 
     override fun showNoResult() {
-        TODO("Not yet implemented")
+        binding.contentSearch.noResultText.visibility = View.VISIBLE
+        binding.contentSearch.loadingView.visibility = View.GONE
     }
 
     override fun openRecipe(data: RecipePreview) {
@@ -92,7 +93,6 @@ class SearchActivity : AppCompatActivity(), SearchView {
             }
             false
         }
-        binding.toolbar.setTitle(R.string.search_title)
     }
 
     private fun performSearch() {
