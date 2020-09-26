@@ -3,5 +3,9 @@
     android:id="@+id/list_title"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/default_spacing"
+    android:layout_marginTop="@dimen/medium_spacing"
+    android:layout_marginStart="@dimen/activity_horizontal_margin"
+    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+    android:layout_marginBottom="@dimen/default_spacing"
+    android:textSize="@dimen/section_title_font_size"
     android:textStyle="bold"/>
