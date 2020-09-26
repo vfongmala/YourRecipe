@@ -14,23 +14,23 @@ class RecipeDetailAdapter: RecyclerView.Adapter<BaseViewHolder<*>>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            RecipeItemType.SUMMARY.value -> {
+            RecipeItemType.SUMMARY -> {
                 val view = inflater.inflate(R.layout.item_recipe_summary, parent, false)
                 RecipeSummaryViewHolder(view)
             }
-            RecipeItemType.INGREDIENT_ITEM.value -> {
+            RecipeItemType.INGREDIENT_ITEM -> {
                 val view = inflater.inflate(R.layout.item_ingredient, parent, false)
                 RecipeIngredientViewHolder(view)
             }
-            RecipeItemType.INSTRUCTION_ITEM.value -> {
+            RecipeItemType.INSTRUCTION_ITEM -> {
                 val view = inflater.inflate(R.layout.item_instruction_step, parent, false)
                 RecipeInstructionViewHolder(view)
             }
-            RecipeItemType.SECTION_TITLE.value -> {
+            RecipeItemType.SECTION_TITLE -> {
                 val view = inflater.inflate(R.layout.item_section_title, parent, false)
                 SectionTitleViewHolder(view)
             }
-            RecipeItemType.SECTION_SUBTITLE.value -> {
+            RecipeItemType.SECTION_SUBTITLE -> {
                 val view = inflater.inflate(R.layout.item_section_subtitle, parent, false)
                 SectionSubtitleViewHolder(view)
             }
@@ -45,7 +45,7 @@ class RecipeDetailAdapter: RecyclerView.Adapter<BaseViewHolder<*>>() {
             is RecipeInstructionViewHolder -> holder.bind(data[position] as RecipeInstruction)
             is SectionTitleViewHolder -> holder.bind(data[position] as SectionTitle)
             is SectionSubtitleViewHolder -> holder.bind(data[position] as SectionSubtitle)
-            else -> throw java.lang.IllegalArgumentException("Invalid view holder type")
+            else -> throw IllegalArgumentException("Invalid view holder type")
         }
     }
 
@@ -55,11 +55,11 @@ class RecipeDetailAdapter: RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     override fun getItemViewType(position: Int): Int {
         return when(data[position]) {
-            is RecipeSummary -> RecipeItemType.SUMMARY.value
-            is SectionTitle -> RecipeItemType.SECTION_TITLE.value
-            is RecipeIngredient -> RecipeItemType.INGREDIENT_ITEM.value
-            is SectionSubtitle -> RecipeItemType.SECTION_SUBTITLE.value
-            is RecipeInstruction -> RecipeItemType.INSTRUCTION_ITEM.value
+            is RecipeSummary -> RecipeItemType.SUMMARY
+            is SectionTitle -> RecipeItemType.SECTION_TITLE
+            is RecipeIngredient -> RecipeItemType.INGREDIENT_ITEM
+            is SectionSubtitle -> RecipeItemType.SECTION_SUBTITLE
+            is RecipeInstruction -> RecipeItemType.INSTRUCTION_ITEM
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }

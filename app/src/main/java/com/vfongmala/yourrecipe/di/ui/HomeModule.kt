@@ -1,6 +1,7 @@
 package com.vfongmala.yourrecipe.di.ui
 
 import androidx.lifecycle.ViewModelProvider
+import com.vfongmala.yourrecipe.core.SchedulersFactory
 import com.vfongmala.yourrecipe.domain_contract.SearchInteractor
 import com.vfongmala.yourrecipe.domain_contract.entity.RecipeInfo
 import com.vfongmala.yourrecipe.domain_contract.mapper.Mapper
@@ -16,14 +17,16 @@ class HomeModule {
     fun provideHomePresenter(
         fragment: HomeFragment,
         searchInteractor: SearchInteractor,
-        recipeInfoMapper: Mapper<RecipeInfo, RecipePreview>
+        recipeInfoMapper: Mapper<RecipeInfo, RecipePreview>,
+        schedulersFactory: SchedulersFactory
     ): HomePresenter {
         return HomePresenter(
             fragment,
-            fragment,
-            ViewModelProvider(fragment),
+//            fragment,
+//            ViewModelProvider(fragment),
             searchInteractor,
-            recipeInfoMapper
+            recipeInfoMapper,
+            schedulersFactory
         )
     }
 }

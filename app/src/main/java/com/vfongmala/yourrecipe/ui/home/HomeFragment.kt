@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.vfongmala.yourrecipe.core.Constants
 import com.vfongmala.yourrecipe.databinding.FragmentHomeBinding
 import com.vfongmala.yourrecipe.ui.adapter.RecipePreviewAdapter
@@ -27,6 +28,8 @@ class HomeFragment : Fragment(), HomeView {
 
     private val listAdapter = RecipePreviewAdapter()
 
+    private lateinit var viewModel: HomeViewModel
+
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -40,6 +43,11 @@ class HomeFragment : Fragment(), HomeView {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         initView()
+
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        viewModel.list.observe(viewLifecycleOwner, {
+            showResult(it)
+        })
 
         return binding.root
     }
@@ -90,6 +98,10 @@ class HomeFragment : Fragment(), HomeView {
 
     override fun showLoading() {
         binding.loadingView.visibility = View.VISIBLE
+    }
+
+    override fun updateData(results: List<RecipePreview>) {
+        viewModel.list.value = results
     }
 
     private fun initView() {

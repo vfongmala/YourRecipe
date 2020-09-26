@@ -6,7 +6,7 @@ import com.vfongmala.yourrecipe.databinding.ItemSectionTitleBinding
 import com.vfongmala.yourrecipe.ui.entity.SectionSubtitle
 import com.vfongmala.yourrecipe.ui.entity.SectionTitle
 
-class SectionSubtitleViewHolder(
+open class SectionSubtitleViewHolder(
     private val view: View
 ): BaseViewHolder<SectionSubtitle>(view) {
     override fun bind(data: SectionSubtitle) {

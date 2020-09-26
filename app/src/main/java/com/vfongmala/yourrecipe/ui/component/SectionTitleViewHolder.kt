@@ -4,7 +4,7 @@ import android.view.View
 import com.vfongmala.yourrecipe.databinding.ItemSectionTitleBinding
 import com.vfongmala.yourrecipe.ui.entity.SectionTitle
 
-class SectionTitleViewHolder(
+open class SectionTitleViewHolder(
     private val view: View
 ): BaseViewHolder<SectionTitle>(view) {
     override fun bind(data: SectionTitle) {

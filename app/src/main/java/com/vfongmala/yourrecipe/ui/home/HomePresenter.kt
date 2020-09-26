@@ -2,6 +2,7 @@ package com.vfongmala.yourrecipe.ui.home
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import com.vfongmala.yourrecipe.core.SchedulersFactory
 import com.vfongmala.yourrecipe.domain_contract.SearchInteractor
 import com.vfongmala.yourrecipe.domain_contract.entity.RecipeInfo
 import com.vfongmala.yourrecipe.domain_contract.mapper.Mapper
@@ -11,20 +12,21 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class HomePresenter(
     private val view: HomeView,
-    private val lifecycleOwner: LifecycleOwner,
-    private val viewModelProvider: ViewModelProvider,
+//    private val lifecycleOwner: LifecycleOwner,
+//    private val viewModelProvider: ViewModelProvider,
     private val searchInteractor: SearchInteractor,
-    private val recipeInfoMapper: Mapper<RecipeInfo, RecipePreview>
+    private val recipeInfoMapper: Mapper<RecipeInfo, RecipePreview>,
+    private val schedulersFactory: SchedulersFactory
 ) {
 
-    private lateinit var homeViewModel: HomeViewModel
+//    private lateinit var homeViewModel: HomeViewModel
 
     fun init() {
-        homeViewModel = viewModelProvider.get(HomeViewModel::class.java)
-
-        homeViewModel.list.observe(lifecycleOwner, {
-            view.showResult(it)
-        })
+//        homeViewModel = viewModelProvider.get(HomeViewModel::class.java)
+//
+//        homeViewModel.list.observe(lifecycleOwner, {
+//            view.showResult(it)
+//        })
 
         getRandomRecipes()
     }
@@ -36,8 +38,8 @@ class HomePresenter(
     private fun getRandomRecipes() {
         view.showLoading()
         searchInteractor.randomRecipes()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(schedulersFactory.io())
+            .observeOn(schedulersFactory.main())
             .map { list ->
                 list.map {
                     recipeInfoMapper.map(it)
@@ -51,7 +53,8 @@ class HomePresenter(
     }
 
     private fun updateModel(result: List<RecipePreview>) {
-        homeViewModel.list.value = result
+//        homeViewModel.list.value = result
+        view.updateData(result)
     }
 
     fun selectRecipe(recipe: RecipePreview) {

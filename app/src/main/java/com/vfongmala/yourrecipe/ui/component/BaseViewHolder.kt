@@ -7,11 +7,12 @@ abstract class BaseViewHolder<in T>(view: View): RecyclerView.ViewHolder(view) {
     abstract fun bind(data: T)
 }
 
-enum class RecipeItemType(val value: Int) {
-    SUMMARY(1),
-    SECTION_TITLE(2),
-    INGREDIENT_ITEM(3),
-    INSTRUCTION_SECTION_TITLE(4),
-    INSTRUCTION_ITEM(5),
-    SECTION_SUBTITLE(6)
+class RecipeItemType {
+    companion object {
+        const val SUMMARY = 1
+        const val SECTION_TITLE = 2
+        const val INGREDIENT_ITEM = 3
+        const val INSTRUCTION_ITEM = 4
+        const val SECTION_SUBTITLE = 5
+    }
 }

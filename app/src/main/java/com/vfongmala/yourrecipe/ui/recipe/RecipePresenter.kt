@@ -36,6 +36,7 @@ class RecipePresenter(
         viewModel.image.value = image
         viewModel.name.value = name
     }
+
     fun loadRecipe(id: Int) {
         searchInteractor.recipeInfo(id)
             .subscribeOn(schedulersFactory.io())

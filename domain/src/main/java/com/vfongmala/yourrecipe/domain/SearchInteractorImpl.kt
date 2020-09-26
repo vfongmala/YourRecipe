@@ -31,7 +31,7 @@ class SearchInteractorImpl(
         return api.randomRecipes(RANDOM_AMOUNT).map { response ->
             response.recipes?.map {
                 recipeInfoResponseMapper.map(it)
-            }
+            }?: listOf()
         }
     }
 

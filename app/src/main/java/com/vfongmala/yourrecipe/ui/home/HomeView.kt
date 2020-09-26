@@ -4,6 +4,7 @@ import com.vfongmala.yourrecipe.ui.entity.RecipePreview
 
 interface HomeView {
     fun showResult(results: List<RecipePreview>)
+    fun updateData(results: List<RecipePreview>)
     fun showNoResult(message: String)
     fun showLoading()
     fun goToSearchActivity()

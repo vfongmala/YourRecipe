@@ -6,7 +6,7 @@ import com.vfongmala.yourrecipe.databinding.ItemRecipeSummaryBinding
 import com.vfongmala.yourrecipe.ui.entity.RecipeSummary
 import com.vfongmala.yourrecipe.ui.utils.TextHighlightHelper.Companion.highlightText
 
-class RecipeSummaryViewHolder(
+open class RecipeSummaryViewHolder(
     private val view: View
 ): BaseViewHolder<RecipeSummary>(view) {
     override fun bind(data: RecipeSummary) {

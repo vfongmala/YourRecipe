@@ -46,27 +46,7 @@ class RecipeInfoResponseMapper : Mapper<RecipeInfoResponse, RecipeInfo> {
         return list?.map {
             RecipeInfo.InstructionStep(
                 it.number ?: 0,
-                it.step ?: "",
-                mapIngredient(it.ingredient),
-                mapEquipment(it.equipment)
-            )
-        } ?: listOf()
-    }
-
-    private fun mapIngredient(list: List<RecipeInfoResponse.Ingredient>?): List<RecipeInfo.Ingredient> {
-        return list?.map {
-            RecipeInfo.Ingredient(
-                it.id ?: 0,
-                it.name ?: ""
-            )
-        } ?: listOf()
-    }
-
-    private fun mapEquipment(list: List<RecipeInfoResponse.Equipment>?): List<RecipeInfo.Equipment> {
-        return list?.map {
-            RecipeInfo.Equipment(
-                it.id ?: 0,
-                it.name ?: ""
+                it.step ?: ""
             )
         } ?: listOf()
     }

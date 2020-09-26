@@ -24,18 +24,6 @@ data class RecipeInfoResponse(
 
     data class InstructionStep(
         val number: Int?,
-        val step: String?,
-        val ingredient: List<Ingredient>?,
-        val equipment: List<Equipment>?
-    )
-
-    data class Ingredient(
-        val id: Int?,
-        val name: String?
-    )
-
-    data class Equipment(
-        val id: Int?,
-        val name: String?
+        val step: String?
     )
 }
