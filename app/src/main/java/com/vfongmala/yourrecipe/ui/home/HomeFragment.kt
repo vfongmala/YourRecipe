@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.vfongmala.yourrecipe.core.Constants
 import com.vfongmala.yourrecipe.databinding.FragmentHomeBinding
-import com.vfongmala.yourrecipe.ui.entity.RecipePreview
 import com.vfongmala.yourrecipe.ui.adapter.RecipePreviewAdapter
+import com.vfongmala.yourrecipe.ui.entity.RecipePreview
 import com.vfongmala.yourrecipe.ui.recipe.RecipeActivity
 import com.vfongmala.yourrecipe.ui.search.SearchActivity
 import dagger.android.support.AndroidSupportInjection
@@ -62,6 +62,7 @@ class HomeFragment : Fragment(), HomeView {
     }
 
     override fun showNoResult(message: String) {
+        binding.loadingView.visibility = View.GONE
         binding.resultView.visibility = View.GONE
         binding.errorText.apply {
             visibility = View.VISIBLE

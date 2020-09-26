@@ -40,7 +40,7 @@ class SearchPresenter(
             }.subscribe({
                 updateModel(it)
             }, {
-                view.showNoResult()
+                view.showError("Something went wrong, please try again.")
             })
     }
 

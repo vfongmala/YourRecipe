@@ -57,6 +57,14 @@ class SearchActivity : AppCompatActivity(), SearchView {
         binding.contentSearch.loadingView.visibility = View.GONE
     }
 
+    override fun showError(message: String) {
+        binding.contentSearch.noResultText.apply {
+            visibility = View.VISIBLE
+            text = message
+        }
+        binding.contentSearch.loadingView.visibility = View.GONE
+    }
+
     override fun openRecipe(data: RecipePreview) {
         val intent = Intent(this, RecipeActivity::class.java).apply {
             putExtra(Constants.RECIPE_ID.value, data.id)

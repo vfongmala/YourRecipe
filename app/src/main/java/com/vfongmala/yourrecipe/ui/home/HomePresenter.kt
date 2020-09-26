@@ -46,7 +46,7 @@ class HomePresenter(
             .subscribe( {
                 updateModel(it)
             }, {
-                view.showNoResult("Something was wrong, please try again")
+                view.showNoResult("Something went wrong, please try again.")
             })
     }
 
