@@ -55,6 +55,15 @@
         android:textAlignment="center"
         android:textSize="12sp"
         android:text="@string/credit_1"
+        app:layout_constraintBottom_toTopOf="@id/credit_app_icon"/>
+
+    <TextView
+        android:id="@+id/credit_app_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:text="@string/credit_2"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

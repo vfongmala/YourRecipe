@@ -30,6 +30,7 @@
     <string name="github_url">https://github.com/vfongmala</string>
     <string name="linkedin_url">https://www.linkedin.com/in/vfongmala/</string>
     <string name="credit_1">Icons made by <b>Pixel perfect</b> from <b> www.flaticon.com</b></string>
+    <string name="credit_2">App icon made by <b>Freepik</b> from <b> www.flaticon.com</b></string>
 
     <!-- Plurals -->
     <plurals name="servings">
