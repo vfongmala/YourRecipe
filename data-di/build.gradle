@@ -10,24 +10,25 @@ java {
 }
 
 dependencies {
+    def appDependencies = rootProject.ext.main
+
     implementation project(":data")
     implementation project(":data-contract")
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "com.google.dagger:dagger:2.29.1"
-    implementation "com.google.code.gson:gson:2.8.6"
-    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
-    implementation "com.squareup.retrofit2:adapter-rxjava3:2.9.0"
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation appDependencies.kotlin
+    implementation appDependencies.dagger
+    implementation appDependencies.retrofit
+    implementation appDependencies.retrofitGsonConverter
+    implementation appDependencies.retrofitAdapterRxjava3
 
-    api "com.squareup.retrofit2:converter-gson:2.9.0"
-    api "com.squareup.retrofit2:adapter-rxjava3:2.9.0"
-    api "com.squareup.retrofit2:retrofit:2.9.0"
-
-    kapt 'com.google.dagger:dagger-compiler:2.29.1'
-
-    annotationProcessor "com.google.dagger:dagger-compiler:2.29.1"
+    api appDependencies.retrofit
+    api appDependencies.retrofitGsonConverter
+    api appDependencies.retrofitAdapterRxjava3
 
     api project(":data-contract")
     api project(":data")
+
+    kapt appDependencies.daggerCompiler
+
+    annotationProcessor appDependencies.daggerCompiler
 }

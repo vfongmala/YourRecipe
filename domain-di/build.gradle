@@ -10,19 +10,20 @@ java {
 }
 
 dependencies {
+    def appDependencies = rootProject.ext.main
+
     implementation project(":data-di")
     implementation project(":data-contract")
     implementation project(":domain")
     implementation project(":domain-contract")
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "com.google.dagger:dagger:2.29.1"
-    implementation "com.google.dagger:dagger-android:2.29.1"
+    implementation appDependencies.kotlin
+    implementation appDependencies.dagger
 
     api project(":data-contract")
     api project(":domain-contract")
 
-    kapt 'com.google.dagger:dagger-compiler:2.29.1'
+    kapt appDependencies.daggerCompiler
 
-    annotationProcessor "com.google.dagger:dagger-compiler:2.29.1"
+    annotationProcessor appDependencies.daggerCompiler
 }

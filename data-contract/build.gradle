@@ -9,7 +9,9 @@ java {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation "io.reactivex.rxjava3:rxjava:3.0.6"
+    def appDependencies = rootProject.ext.main
+
+    implementation appDependencies.kotlin
+    implementation appDependencies.rxjava3
+    implementation appDependencies.retrofit
 }
