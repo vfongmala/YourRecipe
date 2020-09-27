@@ -1,7 +1,5 @@
 package com.vfongmala.yourrecipe.ui.search
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
 import com.vfongmala.yourrecipe.core.SchedulersFactory
 import com.vfongmala.yourrecipe.domain_contract.SearchInteractor
 import com.vfongmala.yourrecipe.domain_contract.entity.Recipe
@@ -10,23 +8,10 @@ import com.vfongmala.yourrecipe.ui.entity.RecipePreview
 
 class SearchPresenter(
     private val view: SearchView,
-    private val lifecycleOwner: LifecycleOwner,
-    private val viewModelProvider: ViewModelProvider,
     private val searchInteractor: SearchInteractor,
     private val schedulersFactory: SchedulersFactory,
     private val recipeMapper: Mapper<Recipe, RecipePreview>
 ) {
-
-    private lateinit var viewModel: SearchViewModel
-
-    fun init() {
-        viewModel = viewModelProvider.get(SearchViewModel::class.java)
-
-        viewModel.list.observe(lifecycleOwner, {
-            view.showResult(it)
-        })
-    }
-
     fun search(name: String) {
         view.showLoading()
         view.hideKeyboard()
@@ -46,7 +31,7 @@ class SearchPresenter(
 
     private fun updateModel(result: List<RecipePreview>) {
         if (result.isNotEmpty()) {
-            viewModel.list.value = result
+            view.updateModel(result)
         } else {
             view.showNoResult()
         }

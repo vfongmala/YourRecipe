@@ -1,13 +1,12 @@
 package com.vfongmala.yourrecipe.ui.home
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.vfongmala.yourrecipe.core.SchedulersFactory
 import com.vfongmala.yourrecipe.domain_contract.SearchInteractor
 import com.vfongmala.yourrecipe.domain_contract.entity.RecipeInfo
 import com.vfongmala.yourrecipe.domain_contract.mapper.Mapper
+import com.vfongmala.yourrecipe.mockdata.Mocks
 import com.vfongmala.yourrecipe.ui.entity.RecipePreview
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.TestScheduler
@@ -22,12 +21,6 @@ class HomePresenterTest {
 
     @Mock
     lateinit var view: HomeView
-
-    @Mock
-    lateinit var lifecycleOwner: LifecycleOwner
-
-    @Mock
-    lateinit var viewModelProvider: ViewModelProvider
 
     @Mock
     lateinit var searchInteractor: SearchInteractor
@@ -54,27 +47,9 @@ class HomePresenterTest {
     @Test
     fun `test init`() {
         // Arrange
-        val data = RecipeInfo(
-            "credit",
-            listOf(
-                RecipeInfo.ExtendedIngredient("ingredient1", 1.1234, "gram")
-            ),
-            1234,
-            "recipe1",
-            10,
-            1,
-            "url1",
-            "summary",
-            listOf(
-                RecipeInfo.Instruction(
-                    "step1", listOf(
-                        RecipeInfo.InstructionStep(1, "step1")
-                    )
-                )
-            )
-        )
+        val data = Mocks.recipeInfo
         whenever(searchInteractor.randomRecipes()).thenReturn(Observable.just(listOf(data)))
-        val mappedData = RecipePreview(1234, "recipe1", "url1")
+        val mappedData = Mocks.recipePreview
         whenever(recipeInfoMapper.map(data)).thenReturn(mappedData)
 
         // Act
@@ -104,7 +79,7 @@ class HomePresenterTest {
     @Test
     fun `test selectRecipe`() {
         // Arrange
-        val data = RecipePreview(1, "recipe", "url")
+        val data = Mocks.recipePreview
 
         // Act
         presenter.selectRecipe(data)

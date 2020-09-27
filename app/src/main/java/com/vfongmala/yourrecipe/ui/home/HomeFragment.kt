@@ -58,7 +58,7 @@ class HomeFragment : Fragment(), HomeView {
         presenter.init()
     }
 
-    override fun showResult(results: List<RecipePreview>) {
+    private fun showResult(results: List<RecipePreview>) {
         binding.loadingView.visibility = View.GONE
         binding.errorText.visibility = View.GONE
         binding.resultView.visibility = View.VISIBLE

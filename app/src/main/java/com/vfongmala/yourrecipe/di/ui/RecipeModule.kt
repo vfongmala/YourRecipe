@@ -1,6 +1,5 @@
 package com.vfongmala.yourrecipe.di.ui
 
-import androidx.lifecycle.ViewModelProvider
 import com.vfongmala.yourrecipe.core.SchedulersFactory
 import com.vfongmala.yourrecipe.domain_contract.SearchInteractor
 import com.vfongmala.yourrecipe.domain_contract.entity.RecipeInfo
@@ -21,7 +20,7 @@ class RecipeModule {
         mapper: Mapper<RecipeInfo, RecipeDetail>
     ): RecipePresenter {
         return RecipePresenter(
-            activity, activity, ViewModelProvider(activity), searchInteractor, schedulersFactory, mapper
+            activity, searchInteractor, schedulersFactory, mapper
         )
     }
 }

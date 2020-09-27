@@ -7,6 +7,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.vfongmala.yourrecipe.core.Constants
 import com.vfongmala.yourrecipe.databinding.ActivitySearchBinding
 import com.vfongmala.yourrecipe.ui.adapter.RecipePreviewAdapter
@@ -23,16 +24,25 @@ class SearchActivity : AppCompatActivity(), SearchView {
     private lateinit var binding: ActivitySearchBinding
 
     private val listAdapter = RecipePreviewAdapter()
+    private lateinit var viewModel: SearchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         initView()
+        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
 
-        presenter.init()
+        viewModel.list.observe(this, {
+            showResult(it)
+        })
     }
 
-    override fun showResult(list: List<RecipePreview>) {
+    override fun updateModel(list: List<RecipePreview>) {
+        viewModel.list.value = list
+
+    }
+
+    private fun showResult(list: List<RecipePreview>) {
         binding.contentSearch.loadingView.visibility = View.GONE
         binding.contentSearch.resultView.visibility = View.VISIBLE
         binding.contentSearch.resultView.apply {

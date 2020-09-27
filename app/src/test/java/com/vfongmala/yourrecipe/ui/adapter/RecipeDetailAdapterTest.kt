@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
+import com.vfongmala.yourrecipe.mockdata.Mocks
 import com.vfongmala.yourrecipe.ui.component.*
 import com.vfongmala.yourrecipe.ui.entity.*
 import org.hamcrest.CoreMatchers.`is`
@@ -45,7 +46,7 @@ class RecipeDetailAdapterTest {
     @Test
     fun `test onBindViewHolder`() {
         // Arrange
-        val summary = RecipeSummary("url", "title", "credit", 1, 10)
+        val summary = RecipeSummary("credit", 1, 10)
         val ingredient = RecipeIngredient("ingredient", "1.0", "gram")
         val instruction = RecipeInstruction("step1")
         val title = SectionTitle(1)
@@ -90,9 +91,9 @@ class RecipeDetailAdapterTest {
     @Test
     fun `test getItemCount`() {
         // Arrange
-        val summary = RecipeSummary("url", "title", "credit", 1, 10)
-        val ingredient = RecipeIngredient("ingredient", "1.0", "gram")
-        val instruction = RecipeInstruction("step1")
+        val summary = Mocks.recipeSummary
+        val ingredient = Mocks.recipeIngredient
+        val instruction = Mocks.recipeInstruction
         val title = SectionTitle(1)
         val subtitle = SectionSubtitle("subtitle")
         adapter.data = listOf(
@@ -110,9 +111,9 @@ class RecipeDetailAdapterTest {
     @Test
     fun `test getItemViewType`() {
         // Arrange
-        val summary = RecipeSummary("url", "title", "credit", 1, 10)
-        val ingredient = RecipeIngredient("ingredient", "1.0", "gram")
-        val instruction = RecipeInstruction("step1")
+        val summary = Mocks.recipeSummary
+        val ingredient = Mocks.recipeIngredient
+        val instruction = Mocks.recipeInstruction
         val title = SectionTitle(1)
         val subtitle = SectionSubtitle("subtitle")
         adapter.data = listOf(

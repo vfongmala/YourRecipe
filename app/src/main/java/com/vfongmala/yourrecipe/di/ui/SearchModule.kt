@@ -1,6 +1,5 @@
 package com.vfongmala.yourrecipe.di.ui
 
-import androidx.lifecycle.ViewModelProvider
 import com.vfongmala.yourrecipe.core.SchedulersFactory
 import com.vfongmala.yourrecipe.domain_contract.SearchInteractor
 import com.vfongmala.yourrecipe.domain_contract.entity.Recipe
@@ -23,8 +22,6 @@ class SearchModule {
     ): SearchPresenter {
         return SearchPresenter(
             activity,
-            activity,
-            ViewModelProvider(activity),
             searchInteractor,
             schedulersFactory,
             recipePreviewMapper

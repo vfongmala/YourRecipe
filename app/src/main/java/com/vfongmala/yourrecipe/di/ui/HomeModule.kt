@@ -1,6 +1,5 @@
 package com.vfongmala.yourrecipe.di.ui
 
-import androidx.lifecycle.ViewModelProvider
 import com.vfongmala.yourrecipe.core.SchedulersFactory
 import com.vfongmala.yourrecipe.domain_contract.SearchInteractor
 import com.vfongmala.yourrecipe.domain_contract.entity.RecipeInfo
@@ -22,8 +21,6 @@ class HomeModule {
     ): HomePresenter {
         return HomePresenter(
             fragment,
-//            fragment,
-//            ViewModelProvider(fragment),
             searchInteractor,
             recipeInfoMapper,
             schedulersFactory

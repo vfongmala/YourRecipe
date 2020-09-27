@@ -1,7 +1,5 @@
 package com.vfongmala.yourrecipe.ui.recipe
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
 import com.vfongmala.yourrecipe.R
 import com.vfongmala.yourrecipe.core.SchedulersFactory
 import com.vfongmala.yourrecipe.domain_contract.SearchInteractor
@@ -11,32 +9,10 @@ import com.vfongmala.yourrecipe.ui.entity.*
 
 class RecipePresenter(
     private val view: RecipeView,
-    private val lifecycleOwner: LifecycleOwner,
-    private val viewModelProvider: ViewModelProvider,
     private val searchInteractor: SearchInteractor,
     private val schedulersFactory: SchedulersFactory,
     private val mapper: Mapper<RecipeInfo, RecipeDetail>
 ) {
-
-    private lateinit var viewModel: RecipeViewModel
-
-    fun init(name: String, image: String) {
-        viewModel = viewModelProvider.get(RecipeViewModel::class.java)
-
-        viewModel.data.observe(lifecycleOwner, {
-            view.showRecipe(it)
-        })
-        viewModel.image.observe(lifecycleOwner, {
-            view.showRecipeImage(it)
-        })
-        viewModel.name.observe(lifecycleOwner, {
-            view.setRecipeTitle(it)
-        })
-
-        viewModel.image.value = image
-        viewModel.name.value = name
-    }
-
     fun loadRecipe(id: Int) {
         searchInteractor.recipeInfo(id)
             .subscribeOn(schedulersFactory.io())
@@ -55,13 +31,11 @@ class RecipePresenter(
     }
 
     private fun updateModel(result: RecipeDetail) {
-        viewModel.data.value = transform(result)
+        view.updateViewModel(transform(result))
     }
 
     private fun transform(result: RecipeDetail): List<ViewDataWrapper> {
         val summary = RecipeSummary(
-            result.image,
-            result.title,
             result.creditsText,
             result.servings,
             result.readyInMinutes
