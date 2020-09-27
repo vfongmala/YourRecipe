@@ -2,6 +2,9 @@ package com.vfongmala.yourrecipe.ui.recipe
 
 import com.vfongmala.yourrecipe.R
 import com.vfongmala.yourrecipe.core.SchedulersFactory
+import com.vfongmala.yourrecipe.dao.SavedRecipeDatabase
+import com.vfongmala.yourrecipe.dao.SavedRecipeRepository
+import com.vfongmala.yourrecipe.dao.entity.SavedRecipe
 import com.vfongmala.yourrecipe.domain_contract.SearchInteractor
 import com.vfongmala.yourrecipe.domain_contract.entity.RecipeInfo
 import com.vfongmala.yourrecipe.domain_contract.mapper.Mapper
@@ -13,6 +16,14 @@ class RecipePresenter(
     private val schedulersFactory: SchedulersFactory,
     private val mapper: Mapper<RecipeInfo, RecipeDetail>
 ) {
+    private var recipe: SavedRecipe? = null
+    lateinit var repo: SavedRecipeRepository
+
+    fun init(activity: RecipeActivity) {
+        val dao = SavedRecipeDatabase.getDatabase(activity.applicationContext).dao()
+        repo = SavedRecipeRepository(dao)
+    }
+
     fun loadRecipe(id: Int) {
         searchInteractor.recipeInfo(id)
             .subscribeOn(schedulersFactory.io())
@@ -26,8 +37,14 @@ class RecipePresenter(
             })
     }
 
-    fun saveRecipe() {
+    fun cacheRecipe(id: Int, name: String, url: String) {
+        recipe = SavedRecipe(id, name, url)
+    }
 
+    fun saveRecipe() {
+        recipe?.let {
+            view.saveRecipe(it)
+        }
     }
 
     private fun updateModel(result: RecipeDetail) {
