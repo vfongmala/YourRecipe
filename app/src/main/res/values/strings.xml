@@ -18,10 +18,11 @@
     <string name="instructions">Instructions</string>
     <string name="credit">From: %s</string>
     <string name="ingredient_amount">%s %s</string>
+    <string name="recipe_saved">Saved, you can see it in Saved recipe screen.</string>
 
     <!-- Search page -->
     <string name="search_hint">Type here to search</string>
-    <string name="search_no_result">There is no result for this keyword.<br/>Please try again with another keyword</string>
+    <string name="search_no_result">There is no result for this keyword.<br/>Please try again with another keyword.</string>
 
     <!-- About page -->
     <string name="about_title">YourRecipe application</string>
@@ -34,6 +35,9 @@
 
     <!-- Saved recipe page -->
     <string name="no_saved_recipe">There is no saved recipe. Start browsing to find your favourite recipe and save it.</string>
+
+    <!-- General -->
+    <string name="default_error_message">Something went wrong, please try again.</string>
 
     <!-- Plurals -->
     <plurals name="servings">

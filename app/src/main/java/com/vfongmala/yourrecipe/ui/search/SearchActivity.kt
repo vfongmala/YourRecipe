@@ -7,7 +7,6 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.vfongmala.yourrecipe.core.Constants
 import com.vfongmala.yourrecipe.databinding.ActivitySearchBinding
 import com.vfongmala.yourrecipe.ui.adapter.RecipePreviewAdapter
@@ -16,66 +15,53 @@ import com.vfongmala.yourrecipe.ui.recipe.RecipeActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-class SearchActivity : AppCompatActivity(), SearchView {
-
-    @Inject
-    lateinit var presenter: SearchPresenter
+class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchBinding
 
     private val listAdapter = RecipePreviewAdapter()
-    private lateinit var viewModel: SearchViewModel
+
+    @Inject
+    lateinit var viewModel: SearchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         initView()
-        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
+        initViewModel()
+    }
 
+    private fun initViewModel() {
         viewModel.list.observe(this, {
             showResult(it)
         })
-    }
 
-    override fun updateModel(list: List<RecipePreview>) {
-        viewModel.list.value = list
-
+        viewModel.showNoResult.observe(this, {
+            setNoResultMessageStatus(it)
+        })
+        viewModel.showLoading.observe(this, {
+            setLoadingStatus(it)
+        })
+        viewModel.showError.observe(this, {
+            setErrorMessageStatus(it)
+        })
     }
 
     private fun showResult(list: List<RecipePreview>) {
-        binding.contentSearch.loadingView.visibility = View.GONE
-        binding.contentSearch.resultView.visibility = View.VISIBLE
-        binding.contentSearch.resultView.apply {
-            visibility = View.VISIBLE
+        if (list.isNotEmpty()) {
+            binding.contentSearch.resultView.visibility = View.VISIBLE
+
+            listAdapter.apply {
+                data.clear()
+                data.addAll(list)
+                notifyDataSetChanged()
+            }
+        } else {
+            binding.contentSearch.resultView.visibility = View.GONE
         }
-
-        listAdapter.apply {
-            data.clear()
-            data.addAll(list)
-            notifyDataSetChanged()
-        }
     }
 
-    override fun showLoading() {
-        binding.contentSearch.loadingView.visibility = View.VISIBLE
-        binding.contentSearch.resultView.visibility = View.GONE
-        binding.contentSearch.noResultText.visibility = View.GONE
-    }
-
-    override fun showNoResult() {
-        binding.contentSearch.noResultText.visibility = View.VISIBLE
-        binding.contentSearch.loadingView.visibility = View.GONE
-    }
-
-    override fun showError(message: String) {
-        binding.contentSearch.noResultText.apply {
-            visibility = View.VISIBLE
-            text = message
-        }
-        binding.contentSearch.loadingView.visibility = View.GONE
-    }
-
-    override fun openRecipe(data: RecipePreview) {
+    private fun openRecipe(data: RecipePreview) {
         val intent = Intent(this, RecipeActivity::class.java).apply {
             putExtra(Constants.RECIPE_ID.value, data.id)
             putExtra(Constants.RECIPE_IMAGE.value, data.url)
@@ -84,7 +70,7 @@ class SearchActivity : AppCompatActivity(), SearchView {
         startActivity(intent)
     }
 
-    override fun hideKeyboard() {
+    private fun hideKeyboard() {
         val view = this.currentFocus
         view?.let {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
@@ -98,7 +84,7 @@ class SearchActivity : AppCompatActivity(), SearchView {
         setContentView(view)
 
         listAdapter.onClickFunc = {
-            presenter.selectRecipe(it)
+            openRecipe(it)
         }
         binding.contentSearch.searchButton.setOnClickListener {
             performSearch()
@@ -108,12 +94,30 @@ class SearchActivity : AppCompatActivity(), SearchView {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 performSearch()
                 true
+            } else {
+                false
             }
-            false
         }
     }
 
     private fun performSearch() {
-        presenter.search(binding.contentSearch.searchBox.text.toString())
+        viewModel.search(binding.contentSearch.searchBox.text.toString())
+        hideKeyboard()
     }
+
+    private fun setLoadingStatus(show: Boolean) {
+        binding.contentSearch.loadingView.visibility = if (show) View.VISIBLE else View.GONE
+        binding.contentSearch.resultView.visibility = if (show) View.GONE else View.VISIBLE
+    }
+
+    private fun setErrorMessageStatus(show: Boolean) {
+        binding.contentSearch.errorText.visibility = if (show) View.VISIBLE else View.GONE
+        binding.contentSearch.resultView.visibility = if (show) View.GONE else View.VISIBLE
+    }
+
+    private fun setNoResultMessageStatus(show: Boolean) {
+        binding.contentSearch.noResultText.visibility = if (show) View.VISIBLE else View.GONE
+        binding.contentSearch.resultView.visibility = if (show) View.GONE else View.VISIBLE
+    }
+
 }

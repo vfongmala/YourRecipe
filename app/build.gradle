@@ -85,7 +85,7 @@ dependencies {
     testImplementation testDependencies.robolectric
     testImplementation testDependencies.runner
     testImplementation testDependencies.extJunit
-
+    testImplementation testDependencies.archCoreTesting
 
     androidTestImplementation testDependencies.extJunit
     androidTestImplementation testDependencies.espressoCore

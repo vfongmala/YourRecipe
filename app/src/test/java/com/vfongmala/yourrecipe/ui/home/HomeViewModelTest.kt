@@ -1,6 +1,8 @@
 package com.vfongmala.yourrecipe.ui.home
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyZeroInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import com.vfongmala.yourrecipe.core.SchedulersFactory
 import com.vfongmala.yourrecipe.domain_contract.SearchInteractor
@@ -10,17 +12,21 @@ import com.vfongmala.yourrecipe.mockdata.Mocks
 import com.vfongmala.yourrecipe.ui.entity.RecipePreview
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.TestScheduler
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
+import org.junit.Assert.assertNull
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class HomePresenterTest {
+class HomeViewModelTest {
 
-    @Mock
-    lateinit var view: HomeView
+    @get:Rule
+    val instantExecutorRule = InstantTaskExecutorRule()
 
     @Mock
     lateinit var searchInteractor: SearchInteractor
@@ -31,15 +37,11 @@ class HomePresenterTest {
     @Mock
     lateinit var schedulersFactory: SchedulersFactory
 
-    private lateinit var presenter: HomePresenter
-
     private val testScheduler = TestScheduler()
+    lateinit var viewModel: HomeViewModel
 
     @Before
     fun setup() {
-        presenter = HomePresenter(
-            view, searchInteractor, recipeInfoMapper, schedulersFactory
-        )
         whenever(schedulersFactory.io()).thenReturn(testScheduler)
         whenever(schedulersFactory.main()).thenReturn(testScheduler)
     }
@@ -53,38 +55,33 @@ class HomePresenterTest {
         whenever(recipeInfoMapper.map(data)).thenReturn(mappedData)
 
         // Act
-        presenter.init()
+        viewModel = HomeViewModel(searchInteractor, recipeInfoMapper, schedulersFactory)
+
         testScheduler.triggerActions()
 
-        // Assert
+        // Asserts
         verify(searchInteractor).randomRecipes()
         verify(recipeInfoMapper).map(data)
-        verify(view).updateData(listOf(mappedData))
+        assertThat(viewModel.list.value, `is`(listOf(mappedData)))
+        assertThat(viewModel.showLoading.value, `is`(false))
+        assertThat(viewModel.showError.value, `is`(false))
     }
 
     @Test
     fun `test init with error`() {
         // Arrange
-        whenever(searchInteractor.randomRecipes()).thenReturn(Observable.error(NullPointerException()))
+        whenever(searchInteractor.randomRecipes()).thenReturn(Observable.error(Exception()))
 
         // Act
-        presenter.init()
+        viewModel = HomeViewModel(searchInteractor, recipeInfoMapper, schedulersFactory)
+
         testScheduler.triggerActions()
 
-        // Assert
+        // Asserts
         verify(searchInteractor).randomRecipes()
-        verify(view).showNoResult("Something went wrong, please try again.")
-    }
-
-    @Test
-    fun `test selectRecipe`() {
-        // Arrange
-        val data = Mocks.recipePreview
-
-        // Act
-        presenter.selectRecipe(data)
-
-        // Assert
-        verify(view).openRecipe(data)
+        verifyZeroInteractions(recipeInfoMapper)
+        assertNull(viewModel.list.value)
+        assertThat(viewModel.showLoading.value, `is`(false))
+        assertThat(viewModel.showError.value, `is`(true))
     }
 }

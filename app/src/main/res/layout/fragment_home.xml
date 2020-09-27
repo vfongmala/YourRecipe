@@ -25,6 +25,7 @@
         android:textAlignment="center"
         android:gravity="center"
         android:visibility="gone"
+        android:text="@string/default_error_message"
         />
 
     <androidx.recyclerview.widget.RecyclerView

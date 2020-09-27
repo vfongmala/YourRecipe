@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.vfongmala.yourrecipe.core.Constants
 import com.vfongmala.yourrecipe.databinding.FragmentHomeBinding
 import com.vfongmala.yourrecipe.ui.adapter.RecipePreviewAdapter
@@ -17,18 +16,16 @@ import com.vfongmala.yourrecipe.ui.search.SearchActivity
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class HomeFragment : Fragment(), HomeView {
+class HomeFragment : Fragment() {
 
     @Inject
-    lateinit var presenter: HomePresenter
+    lateinit var viewModel: HomeViewModel
 
     private var _binding: FragmentHomeBinding? = null
 
     private val binding get() = _binding!!
 
     private val listAdapter = RecipePreviewAdapter()
-
-    private lateinit var viewModel: HomeViewModel
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -44,18 +41,19 @@ class HomeFragment : Fragment(), HomeView {
 
         initView()
 
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         viewModel.list.observe(viewLifecycleOwner, {
             showResult(it)
         })
 
+        viewModel.showLoading.observe(viewLifecycleOwner, {
+            setLoadingStatus(it)
+        })
+
+        viewModel.showError.observe(viewLifecycleOwner, {
+            setErrorMessageStatus(it)
+        })
+
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        presenter.init()
     }
 
     private fun showResult(results: List<RecipePreview>) {
@@ -69,16 +67,7 @@ class HomeFragment : Fragment(), HomeView {
         }
     }
 
-    override fun showNoResult(message: String) {
-        binding.loadingView.visibility = View.GONE
-        binding.resultView.visibility = View.GONE
-        binding.errorText.apply {
-            visibility = View.VISIBLE
-            text = message
-        }
-    }
-
-    override fun goToSearchActivity() {
+    private fun goToSearchActivity() {
         startActivity(Intent(this.context, SearchActivity::class.java))
     }
 
@@ -87,7 +76,7 @@ class HomeFragment : Fragment(), HomeView {
         _binding = null
     }
 
-    override fun openRecipe(data: RecipePreview) {
+    private fun openRecipe(data: RecipePreview) {
         val intent = Intent(this.context, RecipeActivity::class.java).apply {
             putExtra(Constants.RECIPE_ID.value, data.id)
             putExtra(Constants.RECIPE_IMAGE.value, data.url)
@@ -96,20 +85,20 @@ class HomeFragment : Fragment(), HomeView {
         startActivity(intent)
     }
 
-    override fun showLoading() {
-        binding.loadingView.visibility = View.VISIBLE
+    private fun setLoadingStatus(show: Boolean) {
+        binding.loadingView.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    override fun updateData(results: List<RecipePreview>) {
-        viewModel.list.value = results
+    private fun setErrorMessageStatus(show: Boolean) {
+        binding.errorText.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun initView() {
         listAdapter.onClickFunc = {
-            presenter.selectRecipe(it)
+            openRecipe(it)
         }
         binding.fab.setOnClickListener {
-            presenter.search()
+            goToSearchActivity()
         }
         binding.resultView.adapter = listAdapter
     }
