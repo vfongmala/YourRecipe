@@ -22,12 +22,11 @@
 
     <!-- Search page -->
     <string name="search_hint">Type here to search</string>
-    <string name="search_no_result">There is no result for this keyword.<br/>Please try again with another keyword.</string>
+    <string name="search_no_result">There is no result for this keyword.\nPlease try again with another keyword.</string>
 
     <!-- About page -->
     <string name="about_title">YourRecipe application</string>
     <string name="about_subtitle">created by Vichita Fongmala</string>
-
     <string name="github_url">https://github.com/vfongmala</string>
     <string name="linkedin_url">https://www.linkedin.com/in/vfongmala/</string>
     <string name="credit_1">Icons made by <b>Pixel perfect</b> from <b> www.flaticon.com</b></string>

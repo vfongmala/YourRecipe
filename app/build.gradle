@@ -70,6 +70,7 @@ dependencies {
     implementation appDependencies.glide
     implementation appDependencies.roomRuntime
     implementation appDependencies.archLifecycle
+    implementation appDependencies.lottie
 
     kapt appDependencies.daggerAndroidProcessor
     kapt appDependencies.daggerCompiler

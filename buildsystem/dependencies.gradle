@@ -22,6 +22,7 @@ ext {
     rxjava3_rxandroid_version = '3.0.0'
     glide_version = '4.11.0'
     retrofit_version = '2.9.0'
+    lottie_version = '3.4.2'
 
     // Testing
     junit_version = '4.12'
@@ -62,7 +63,9 @@ ext {
             roomCompiler: "androidx.room:room-compiler:$room_version",
 
             archLifecycle: "android.arch.lifecycle:extensions:$archlifecycle_version",
-            archLifecycleCompiler: "android.arch.lifecycle:compiler:$archlifecycle_version"
+            archLifecycleCompiler: "android.arch.lifecycle:compiler:$archlifecycle_version",
+
+            lottie: "com.airbnb.android:lottie:$lottie_version"
     ]
 
     testing = [
