@@ -32,6 +32,9 @@
     <string name="credit_1">Icons made by <b>Pixel perfect</b> from <b> www.flaticon.com</b></string>
     <string name="credit_2">App icon made by <b>Freepik</b> from <b> www.flaticon.com</b></string>
 
+    <!-- Saved recipe page -->
+    <string name="no_saved_recipe">There is no saved recipe. Start browsing to find your favourite recipe and save it.</string>
+
     <!-- Plurals -->
     <plurals name="servings">
         <item quantity="one">%d serving</item>

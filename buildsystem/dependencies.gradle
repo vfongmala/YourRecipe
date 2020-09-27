@@ -13,6 +13,8 @@ ext {
     constrainlayout_version = '2.0.1'
     navigation_ktx_version = '2.3.0'
     lifecycle_ktx_version = '2.2.0'
+    room_version = '2.2.5'
+    archlifecycle_version = '1.1.1'
 
     // Third party
     dagger_version = '2.29.1'
@@ -54,7 +56,13 @@ ext {
 
             retrofit: "com.squareup.retrofit2:retrofit:$retrofit_version",
             retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:$retrofit_version",
-            retrofitAdapterRxjava3: "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
+            retrofitAdapterRxjava3: "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version",
+
+            roomRuntime: "androidx.room:room-runtime:$room_version",
+            roomCompiler: "androidx.room:room-compiler:$room_version",
+
+            archLifecycle: "android.arch.lifecycle:extensions:$archlifecycle_version",
+            archLifecycleCompiler: "android.arch.lifecycle:compiler:$archlifecycle_version"
     ]
 
     testing = [
@@ -63,6 +71,7 @@ ext {
             robolectric: "org.robolectric:robolectric:$robolectric_version",
             runner: "androidx.test:runner:$runner_version",
             extJunit: "androidx.test.ext:junit:$ext_junit_version",
-            espressoCore: "androidx.test.espresso:espresso-core:$espresso_version"
+            espressoCore: "androidx.test.espresso:espresso-core:$espresso_version",
+            roomTesting: "android.arch.persistence.room:testing:$room_version"
     ]
 }

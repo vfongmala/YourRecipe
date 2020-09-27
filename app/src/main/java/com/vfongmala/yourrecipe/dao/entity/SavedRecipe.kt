@@ -1,6 +1,7 @@
 package com.vfongmala.yourrecipe.dao.entity
 
 import androidx.annotation.NonNull
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -8,7 +9,8 @@ import androidx.room.PrimaryKey
 data class SavedRecipe(
     @PrimaryKey
     @NonNull
-    private val id: Int,
-    private val title: String,
-    private val image: String
+    @ColumnInfo(name = "id")
+    val id: Int,
+    val title: String,
+    val image: String
 )

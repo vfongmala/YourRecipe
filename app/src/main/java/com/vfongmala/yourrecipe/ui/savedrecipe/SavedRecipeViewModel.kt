@@ -1,13 +1,21 @@
 package com.vfongmala.yourrecipe.ui.savedrecipe
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.vfongmala.yourrecipe.dao.SavedRecipeDatabase
+import com.vfongmala.yourrecipe.dao.SavedRecipeRepository
+import com.vfongmala.yourrecipe.dao.entity.SavedRecipe
 
-class SavedRecipeViewModel : ViewModel() {
+class SavedRecipeViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is favorite Fragment"
+    val data: LiveData<List<SavedRecipe>>
+
+    private val repo: SavedRecipeRepository
+
+    init {
+        val dao = SavedRecipeDatabase.getDatabase(application).dao()
+        repo = SavedRecipeRepository(dao)
+        data = repo.savedRecipes
     }
-    val text: LiveData<String> = _text
 }

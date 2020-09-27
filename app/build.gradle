@@ -69,9 +69,13 @@ dependencies {
     implementation appDependencies.rxjava3
     implementation appDependencies.rxAndroid
     implementation appDependencies.glide
+    implementation appDependencies.roomRuntime
+    implementation appDependencies.archLifecycle
 
     kapt appDependencies.daggerAndroidProcessor
     kapt appDependencies.daggerCompiler
+    kapt appDependencies.roomCompiler
+    kapt appDependencies.archLifecycleCompiler
 
     annotationProcessor appDependencies.daggerAndroidProcessor
     annotationProcessor appDependencies.daggerCompiler
@@ -86,5 +90,6 @@ dependencies {
 
     androidTestImplementation testDependencies.extJunit
     androidTestImplementation testDependencies.espressoCore
+    androidTestImplementation testDependencies.roomTesting
 
 }
